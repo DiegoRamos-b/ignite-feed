@@ -13,7 +13,7 @@
 </h1>
 
 <p align="center">
-  <img src="./docs/ignite-feed.png" alt="imagem do projeto" width="800px" heigth="800px">
+  <img src="./docs/ignite-feed.svg" alt="imagem do projeto" width="100%" >
 </p>
 
 > Link da aplicação: <a href="https://ignite-feed-lyart.vercel.app/">Ignite feed</a>
@@ -29,6 +29,7 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 <!---Estes são apenas requisitos de exemplo. Adicionar, duplicar ou remover conforme necessário--->
 
 - Ter instalado o nodeJs
+- Verificar se não tem nenhum processo rodando na porta 3000
 
 ## 🚀 Instalando Ignite Feed
 
@@ -49,9 +50,5 @@ Depois execute os seguintes comando
 **Npm**
 
 ```
-  npm install
-```
-
-```
-  npm start
+  npm i && npm run dev
 ```
