@@ -5,12 +5,20 @@ import { ThumbsUp, Trash } from "phosphor-react";
 
 import { Avatar } from "./Avatar";
 
-export function Comment({ content, deleteComment }) {
+interface ICommentProps {
+  content: string;
+
+  deleteComment: (content: string) => void;
+}
+
+export function Comment({ content, deleteComment }: ICommentProps) {
   const [likeCount, setLikeCount] = useState(0);
 
   const handleLikeComment = () => setLikeCount(likeCount + 1);
 
   const handleClickDeleteComment = () => deleteComment(content);
+
+  const now = new Date();
 
   return (
     <div className={styles.comment}>
@@ -20,8 +28,8 @@ export function Comment({ content, deleteComment }) {
           <header>
             <div className={styles.authorAndTime}>
               <strong>Diego Ramos</strong>
-              <time dateTime={new Date()} title={new Date()}>
-                {new Date().toLocaleDateString()}
+              <time dateTime={now.toISOString()} title={now.toString()}>
+                {now.toLocaleDateString()}
               </time>
             </div>
             <button title="Deletar comentário">

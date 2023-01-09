@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, FormEvent, ChangeEvent } from "react";
 
 import { format, formatDistanceToNow } from "date-fns";
 import ptBr from "date-fns/locale/pt-BR";
@@ -8,8 +8,18 @@ import styles from "./Post.module.css";
 import { Comment } from "./Comment";
 import { Avatar } from "./Avatar";
 
-export function Post({ author, content, publisedAt }) {
-  const [allComments, setAllComments] = useState([]);
+interface IPostProps {
+  author: {
+    name: string;
+    avatarUrl: string;
+    role: string;
+  };
+  content: string;
+  publisedAt: Date;
+}
+
+export function Post({ author, content, publisedAt }: IPostProps) {
+  const [allComments, setAllComments] = useState<string[]>([]);
   const [newCommentText, setNewCommentText] = useState("");
 
   const publishedDateFormated = format(
@@ -23,14 +33,23 @@ export function Post({ author, content, publisedAt }) {
     addSuffix: true,
   });
 
-  const handleCreateNewComment = (event) => {
+  const handleNewCommentChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    event.target.setCustomValidity("");
+    setNewCommentText(event.target.value);
+  };
+
+  const handleNewCommentInvalid = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    event.target.setCustomValidity("Este campo é obrigatorio");
+  };
+
+  const handleCreateNewComment = (event: FormEvent) => {
     event.preventDefault();
 
     setAllComments([...allComments, newCommentText]);
     setNewCommentText("");
   };
 
-  const handleDeleteComment = (content) => {
+  const handleDeleteComment = (content: string) => {
     const filteredComments = allComments.filter(
       (comment) => comment !== content
     );
@@ -73,15 +92,10 @@ export function Post({ author, content, publisedAt }) {
         <strong>Deixe seu feedback</strong>
         <textarea
           placeholder="Deixe um comentario"
-          onChange={(event) => {
-            event.target.setCustomValidity("");
-            setNewCommentText(event.target.value);
-          }}
+          onChange={handleNewCommentChange}
           value={newCommentText}
           required
-          onInvalid={() =>
-            event.target.setCustomValidity("Este campo é obrigatorio")
-          }
+          onInvalid={handleNewCommentInvalid}
         />
         <button disabled={isNewCommentEmpty}>Publicar</button>
       </form>
