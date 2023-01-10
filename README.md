@@ -42,7 +42,7 @@ Para instalar o Ignite Feed, siga estas etapas:
 **Clone o repositório**
 
 ```
-  git clone https://github.com/DiegoRamos-b/ignite-feed.git
+  git clone https://github.com/rms-diego/ignite-feed.git
 ```
 
 Depois execute os seguintes comando
